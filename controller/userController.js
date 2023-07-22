@@ -133,7 +133,10 @@ exports.login = asyncHandler(async (req, res) => {
   const isMatch = await user.comparePassword(req.body.password);
   if (!user || !isMatch)
     throw new BadRequest('Password or E-mail incorrect');
-  const token = user.createJWT();
+  let token = jwt.sign({
+    name: user.name,
+    userId: user._id
+  }, process.env.JWT_KEY);
   res.status(StatusCodes.OK).json({ status: "Success", token, user: santizeData(user) });
 });
 
