@@ -1,0 +1,2 @@
+# Legal-advice 
+legal advice provides legal advice to lawyers, it provides the lawyer with the ability to add common questions in the field of law and at the same time it provides an instant conversation that takes place between the lawyer and the user, and at the same time it provides the feature of booking the office for the lawyer so that if any user wants to reserve the lawyer’s office and take his advice, there is also a news feature with Notification from Firebase, it provides the addition of video links that appear in the interface of the application
