@@ -13,9 +13,9 @@ const rateLimit = require('express-rate-limit')
 const hpp = require('hpp');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean')
-const swaggerUI = require('swagger-ui-express');
+// const swaggerUI = require('swagger-ui-express');
 const YAML = require('yamljs');
-const swaggerDocument = YAML.load('./swagger.yaml');
+// const swaggerDocument = YAML.load('./swagger.yaml');
 const errorHandler = require('./middleware/error-handler');
 const notFoundErr = require('./middleware/notFoundMiddleware');
 const {dbConnection} = require('./db/dbConnection');
@@ -30,8 +30,10 @@ app.options('*', cors());
 // Compress all responses
 app.use(compression());
 // for Swagger Ui StartUp an running live server
-app.get('/', (req, res) => res.redirect('/api-docs'));
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+app.get('/', (req, res) =>{
+  res.json('Api Working Succefly')
+} )
+// app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -81,16 +83,12 @@ io.on('connection', (client) => {
   // Handle incoming message 
   client.on('message', async (data) => {
     console.log(`Message received: ${data.message}`);
-
-    
     io.to(client.id).emit('myMessage', data);
-
     // Broadcast the message to the other client
     client.to(roomId).emit('message', data);
     // Save Messages in MongoDB
     Chat.create(data);
   })
-
 })
 dbConnection()
 
