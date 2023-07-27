@@ -119,7 +119,7 @@ exports.signup = asyncHandler(async (req, res) => {
     name: user.name,
     userId: user._id
   }, process.env.JWT_KEY);
-  res.status(400).json({ token, user: santizeData(user) });
+  res.status(200).json({ token, user: santizeData(user) });
 });
 
 
